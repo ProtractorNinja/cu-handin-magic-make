@@ -22,27 +22,21 @@ copying your files and testing manually.
    Mercurial executable is `hg`.
 
 2. Make sure handin likes you. Follow the instructions at
-   https://handin.cs.clemson.edu/help/students/cli/setup/ for both your
+   `https://handin.cs.clemson.edu/help/students/cli/setup/` for both your
    development machine and the lab machines.
 
-3. Configure handin.sh for your classes. Look at handin.sh for instructions.
-   Make sure handin.sh is in this directory.
+3. Grab the Makefile. You can either `git clone` on this repository
+   (`git@github.com:ProtractorNinja/cu-handin-magic-make.git <new directory
+   name>`) or just download the Makefile straight from here.
 
-4. Adjust the settings below: HGPROFESSOR, HGASSIGNMENT, and PROJECT are
-   probably the most important. You'll have to get HGASSIGNMENT from the
-   current project on the web handin portal, e.g. for:
-   ssh://handin@handin.cs.clemson.edu/1401/cpsc3600-001/assignments/DNSQ/ama2
-   ...the HGASSIGNMENT would be "DNSQ".
+4. For each project, you'll need to adjust the Makefile a little. Go to the web
+   Handin page for your project, and copy the contents of the textbox labeled
+   "Mercurial Repository URL" into the `REPO_URL` variable. Update the rest of
+   the variables as needed (especially the empty ones!).
 
-5. You might need to make additional changes to archive format or included
-   files. + Make sure SOURCES and HEADERS include the file patterns you want.
-   SOURCES is configured for C by default. + Adjust the first line under
-   `submit: ...` and the PROJECT variable's extension if your professor wants
-   a non-.tgz archive type. + Adjust `submit`s dependencies to include all
-   relevant files. All dependencies are added to the archive and submitted.
+5. Run `make handin`. Check to see that your archive is up in web handin.
 
-7. Run `make submit`. Debug. Victory!
+6. Try out `make remote` and `make handout`. They should complete with an instruction to update the `labtest` and `all` rules.
 
-8. Add more rules and variables for building / cleaning / testing.
-
+7. You're done. Good luck on that project!
 
