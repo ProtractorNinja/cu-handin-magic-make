@@ -5,9 +5,8 @@
 # Variables #
 # ========= #
 
-# handin.sh parameters
-HGPROFESSOR = sorber
-HGASSIGNMENT = project1a
+# Copy the contents of "Mercurial Repository URL" here!
+REPO_URL = 
 
 # Names the archive file; usually given in your project spec.
 PROJECT = project1.tgz
@@ -63,7 +62,7 @@ handout:
 	  echo '>> Connected! Cleaning old code... << ';\
 	  rm -rf $(TESTDIR)/$(HGASSIGNMENT)-handin;\
 	  echo '>> Cloning from handin... << ';\
-	  hg -q clone $(shell ./handin.sh $(USER) $(HGPROFESSOR) $(HGASSIGNMENT)) $(TESTDIR)/$(HGASSIGNMENT)-handin && \
+	  hg -q clone $(REPO_URL) $(TESTDIR)/$(HGASSIGNMENT)-handin && \
 	  echo '>> Unpacking and running \"make\"... <<';\
 	  cd $(TESTDIR)/$(HGASSIGNMENT)-handin && tar -xzf $(PROJECT) && make\
 	\""
@@ -72,7 +71,7 @@ handout:
 # Snazzy!
 handin: $(INFO) $(SOURCES) $(HEADERS)
 	@echo ">> Setting up repo, if necessary... (Failed? Update handin.sh!) <<"
-	@test -d handin || hg clone $$(./handin.sh $(USER) $(HGPROFESSOR) $(HGASSIGNMENT)) $(HGLOCAL)
+	@test -d handin || hg clone $(REPO_URL) $(HGLOCAL)
 	@echo ">> Archiving project files... <<"
 	@$(ARCHIVER) $(HGLOCAL)/$(PROJECT) $^
 	@echo ">> Submitting project to handin (ignore 'already tracked!' warning)... <<"
@@ -88,35 +87,22 @@ handin: $(INFO) $(SOURCES) $(HEADERS)
 # too much, but you can adjust their dependencies and what they do.
 
 # Indicates that these special rules aren't for files (they're for doing cool things)
-.PHONY: clean labtest build remote handout handin \
-	test_trace test_shim
+.PHONY: labtest build remote handout handin \
+	clean
 
 # Cleans out old code
-clean: 
+clean:
 
 # Executing "make remote" will run this rule on a lab machine.
-labtest: test_shim test_trace
+labtest:
 
 # Run with just "make". Should compile things but run nothing.
-all: memory_shim.so leakcount sctracer
+all:
 
 # Run with "make test". Best test everything!
-test: test_shim test_trace
+test:
 
 # =============================== #
 # PUT YOUR CUSTOM MAKE RULES HERE #
 # =============================== #
 # Then you can reference them above.
-
-memory_shim.so: memory_shim.c
-	$(CC) $(CFLAGS) -fPIC -shared -o $@ $^ -ldl -lm
-
-%: %.c
-	$(CC) $(CFLAGS) -o $@ $^
-
-test_trace: sctracer sorber_test_trace_one
-	./sctracer "./sorber_test_trace_one" sctrace.out
-	cat sctrace.out
-
-test_shim: memory_shim.so leakcount sorber_test_one
-	./leakcount ./sorber_test_one

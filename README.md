@@ -17,16 +17,6 @@ copying your files and testing manually.
 
 # Usage Instructions #
 
-## Handin.sh ## 
-This script generates a handin repo SSH URL similar to the following:
-ssh://handin@handin.cs.clemson.edu/1401/cpsc3600-001/assignments/DNSQ/ama2
-...given appropriate settings. By default it's set up for Dr. Malloy's CPSC
-4160 and Dr. Sorber's CPSC 3600.
- 
-To add a new class, go to web handin and copy the first and second URL
-subdirectories (in the example above: `1401/cpsc3600-001`) into a new array
-entry like the ones in lines 21 - 22.
-
 1. Make sure Mercurial is installed on your machine. It's already there on the
    lab machines. On Debian/Ubuntu, use `sudo apt-get install mercurial`. The
    Mercurial executable is `hg`.
