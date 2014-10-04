@@ -27,7 +27,7 @@ LOCAL_HANDIN = handin
 
 # This stuff gets submitted to handin!
 # Example: Makefile README *.c
-HANDIN_FILES =
+HANDIN_FILES = Makefile
 
 # These are settings for connecting to a lab machine.
 # USER is your username, MACHINE is a lab machine (check the SoC motd for more
@@ -37,7 +37,7 @@ HANDIN_FILES =
 REMOTE_USER =
 REMOTE_MACHINE = joey24
 REMOTE_TEST_DIRECTORY = magic-project-tests
-REMOTE_FILES = 
+REMOTE_FILES = Makefile
 
 # ====================== #
 # YOU CAN MESS WITH THIS #
