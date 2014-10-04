@@ -21,23 +21,27 @@ PROJECT_ARCHIVE =
 # Default: tar -czf
 ARCHIVE_COMMAND = tar -czf
 
-# Names your local Mercurial repository folder.
+# Names your local Mercurial repository folder. If something gets messed up
+# with the repo, you can try deleting this folder and running `make handin`
+# again.
 # Default: handin
 LOCAL_HANDIN = handin
 
-# This stuff gets submitted to handin!
+# These are all the files that will get added to the submitted handin archive.
+# The Makefile is always included anyway, so don't worry about it.
 # Example: Makefile README *.c
-HANDIN_FILES = Makefile
+HANDIN_FILES =
 
 # These are settings for connecting to a lab machine.
 # USER is your username, MACHINE is a lab machine (check the SoC motd for more
 # of them), TEST_DIRECTORY is where all testing happens (it's created in your
 # home directory), FILES are the files that will get copied to the lab when
 # running `make remote`. Make sure FILES includes everything you'll need!
+# The Makefile is always included anyway, so don't worry about it.
 REMOTE_USER =
 REMOTE_MACHINE = joey24
 REMOTE_TEST_DIRECTORY = magic-project-tests
-REMOTE_FILES = Makefile
+REMOTE_FILES = 
 
 # ====================== #
 # YOU CAN MESS WITH THIS #
@@ -52,14 +56,14 @@ default: all
 
 # Connects to a lab machine, copies the current directory over, and runs your
 # remote tests.
-remote:
+remote: Makefile $(REMOTE_FILES)
 	@echo ">> Connecting to a lab machine... <<"
 	@ssh $(REMOTE_USER)@access.cs.clemson.edu "ssh $(REMOTE_USER)@$(REMOTE_MACHINE).cs.clemson.edu \"\
 	  echo '>> Connected! Cleaning old code... << ';\
 	  rm -rf $(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT);\
 	\""
-	@echo ">> Copying REMOTE_FILES to the lab... <<"
-	@rsync --quiet $(REMOTE_FILES) $(REMOTE_USER)@access.cs.clemson.edu:~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)
+	@echo ">> Copying Makefile + REMOTE_FILES to the lab... <<"
+	@rsync --quiet $^ $(REMOTE_USER)@access.cs.clemson.edu:~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)
 	@echo ">> Executing \"make labtest\"... <<"
 	@ssh $(REMOTE_USER)@access.cs.clemson.edu "ssh $(REMOTE_USER)@$(REMOTE_MACHINE).cs.clemson.edu \"\
 	  cd $(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT) && make labtest\
@@ -79,7 +83,7 @@ handout:
 
 # Packs project files into a .tgz, and pushes to the remote handin repo.
 # Snazzy!
-handin: $(HANDIN_FILES)
+handin: Makefile $(HANDIN_FILES)
 	@echo ">> Setting up repo, if necessary... (Failed? Update handin.sh!) <<"
 	@test -d handin || hg clone $(REPO_URL) $(LOCAL_HANDIN)
 	@echo ">> Archiving project files... <<"
