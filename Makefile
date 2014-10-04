@@ -25,7 +25,7 @@ ARCHIVE_COMMAND = tar -czf
 # with the repo, you can try deleting this folder and running `make handin`
 # again.
 # Default: handin
-LOCAL_HANDIN = handin
+LOCAL_HANDIN = .handin
 
 # These are all the files that will get added to the submitted handin archive.
 # The Makefile is always included anyway, so don't worry about it.
@@ -34,14 +34,11 @@ HANDIN_FILES =
 
 # These are settings for connecting to a lab machine.
 # USER is your username, MACHINE is a lab machine (check the SoC motd for more
-# of them), TEST_DIRECTORY is where all testing happens (it's created in your
-# home directory), FILES are the files that will get copied to the lab when
-# running `make remote`. Make sure FILES includes everything you'll need!
-# The Makefile is always included anyway, so don't worry about it.
+# of them), and TEST_DIRECTORY is where all testing happens (it's created in your
+# home directory)
 REMOTE_USER =
 REMOTE_MACHINE = joey24
 REMOTE_TEST_DIRECTORY = magic-project-tests
-REMOTE_FILES = 
 
 # ====================== #
 # YOU CAN MESS WITH THIS #
@@ -56,17 +53,12 @@ default: all
 
 # Connects to a lab machine, copies the current directory over, and runs your
 # remote tests.
-remote: Makefile $(REMOTE_FILES)
-	@echo ">> Connecting to a lab machine... <<"
-	@ssh $(REMOTE_USER)@access.cs.clemson.edu "ssh $(REMOTE_USER)@$(REMOTE_MACHINE).cs.clemson.edu \"\
-	  echo '>> Connected! Cleaning old code... << ';\
-	  rm -rf $(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT);\
-	\""
-	@echo ">> Copying Makefile + REMOTE_FILES to the lab... <<"
-	@rsync --quiet $^ $(REMOTE_USER)@access.cs.clemson.edu:~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)
+remote:
+	@echo ">> Copying current directory to the lab... <<"
+	@rsync --exclude=".git" --exclude="$(LOCAL_HANDIN)/" --delete-delay -r . $(REMOTE_USER)@access.cs.clemson.edu:~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)/
 	@echo ">> Executing \"make labtest\"... <<"
 	@ssh $(REMOTE_USER)@access.cs.clemson.edu "ssh $(REMOTE_USER)@$(REMOTE_MACHINE).cs.clemson.edu \"\
-	  cd $(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT) && make labtest\
+	  cd ~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT) && make labtest;\
 	\""
 
 # Connects to a lab machine and calls "make" on whatever you submitted last.
