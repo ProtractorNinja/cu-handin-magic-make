@@ -1,8 +1,7 @@
 # About #
 
-Magic make is a Makefile and partner bash script that interacts with Clemson
-University's web handin system for submitting Computer Science projects. Its
-notable features are:
+Magic make is a Makefile that interacts with Clemson University's web handin
+system for submitting Computer Science projects. Its notable features are:
 
 - A `make remote` rule that copies certain files to a lab machine and executes
   `make labtest` from the same Makefile on the lab machine.
