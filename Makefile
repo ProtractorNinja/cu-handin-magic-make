@@ -84,7 +84,7 @@ handout:
 # Packs project files into a .tgz, and pushes to the remote handin repo.
 # Snazzy!
 handin: Makefile $(HANDIN_FILES)
-	@echo ">> Setting up repo, if necessary... (Failed? Update handin.sh!) <<"
+	@echo ">> Setting up repo, if necessary... <<"
 	@test -d handin || hg clone $(REPO_URL) $(LOCAL_HANDIN)
 	@echo ">> Archiving project files... <<"
 	@$(ARCHIVE_COMMAND) $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE) $^
@@ -92,7 +92,7 @@ handin: Makefile $(HANDIN_FILES)
 	@hg --quiet --cwd $(LOCAL_HANDIN) add $(PROJECT_ARCHIVE)
 	@hg --quiet --cwd $(LOCAL_HANDIN) commit -m "Submitted new project version"
 	@hg --quiet --cwd $(LOCAL_HANDIN) push
-	@echo ">> Success! Use 'make handout' to test on a lab machine. <<"
+	@echo ">> Success! Use \"make handout\" to test on a lab machine. <<"
 
 # ============ #
 # ADJUST THESE #
@@ -106,19 +106,19 @@ handin: Makefile $(HANDIN_FILES)
 
 # Cleans out old code
 clean:
-	@echo "Nothing to clean. Update the `clean` rule!"
+	@echo "Nothing to clean. Update the \"clean\" rule!"
 
 # Executing "make remote" will run this rule on a lab machine.
 labtest:
-	@echo "Nothing to execute. Update the `labtest` rule!"
+	@echo "Nothing to execute. Update the \"labtest\" rule!"
 
 # Run with just "make". Should compile things but run nothing.
 all:
-	@echo "Nothing to build. Update the `all` rule!"
+	@echo "Nothing to build. Update the \"all\" rule!"
 
 # Run with "make test". Best test everything!
 test:
-	@echo "Nothing to test. Update the `test` rule!"
+	@echo "Nothing to test. Update the \"test\" rule!"
 
 # =============================== #
 # PUT YOUR CUSTOM MAKE RULES HERE #

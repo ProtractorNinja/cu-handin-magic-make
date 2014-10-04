@@ -24,7 +24,7 @@ copying your files and testing manually.
    `https://handin.cs.clemson.edu/help/students/cli/setup/` for both your
    development machine and the lab machines.
 
-3. Grab the Makefile. You can either `git clone` on this repository
+3. Grab the Makefile. You can either `git clone` this repository
    (`git@github.com:ProtractorNinja/cu-handin-magic-make.git`) or just download
    the Makefile straight from here.
 
@@ -35,7 +35,8 @@ copying your files and testing manually.
 
 5. Run `make handin`. Check to see that your archive is up in web handin.
 
-6. Try out `make remote` and `make handout`. They should complete with an instruction to update the `labtest` and `all` rules.
+6. Try out `make remote` and `make handout`. They should complete with a demand
+   to update the `labtest` and `all` rules.
 
 7. You're done. Good luck on that project!
 
