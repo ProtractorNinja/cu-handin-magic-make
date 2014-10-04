@@ -29,7 +29,7 @@ LOCAL_HANDIN = handin
 
 # These are all the files that will get added to the submitted handin archive.
 # The Makefile is always included anyway, so don't worry about it.
-# Example: Makefile README *.c
+# Example: README *.c
 HANDIN_FILES =
 
 # These are settings for connecting to a lab machine.
