@@ -102,15 +102,19 @@ handin: $(HANDIN_FILES)
 
 # Cleans out old code
 clean:
+	@echo "Nothing to clean. Update the `clean` rule!"
 
 # Executing "make remote" will run this rule on a lab machine.
 labtest:
+	@echo "Nothing to execute. Update the `labtest` rule!"
 
 # Run with just "make". Should compile things but run nothing.
 all:
+	@echo "Nothing to build. Update the `all` rule!"
 
 # Run with "make test". Best test everything!
 test:
+	@echo "Nothing to test. Update the `test` rule!"
 
 # =============================== #
 # PUT YOUR CUSTOM MAKE RULES HERE #
