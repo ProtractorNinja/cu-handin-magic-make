@@ -77,7 +77,7 @@ handout:
 # Snazzy!
 handin: Makefile $(HANDIN_FILES)
 	@echo ">> Setting up repo, if necessary... <<"
-	@test -d handin || hg clone $(REPO_URL) $(LOCAL_HANDIN)
+	@test -d $(LOCAL_HANDIN) || hg clone $(REPO_URL) $(LOCAL_HANDIN)
 	@echo ">> Archiving project files... <<"
 	@$(ARCHIVE_COMMAND) $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE) $^
 	@echo ">> Submitting project to handin (ignore 'already tracked!' warning)... <<"
