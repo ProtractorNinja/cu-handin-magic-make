@@ -24,6 +24,10 @@ copying your files and testing manually.
    `https://handin.cs.clemson.edu/help/students/cli/setup/` for both your
    development machine and the lab machines.
 
+   To use `make remote`, you'll also need to make sure you can automatically
+   `ssh` to the lab machines from your development machine. 
+   [Here's](http://www.linuxproblem.org/art_9.html) a decent tutorial.
+
 3. Grab the Makefile. You can either `git clone` this repository
    (`git@github.com:ProtractorNinja/cu-handin-magic-make.git`) or just download
    the Makefile straight from here.
