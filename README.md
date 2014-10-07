@@ -1,6 +1,6 @@
 # About #
 
-Magic Make is a Makefile that interacts with Clemson University's web handin
+Magic make is a Makefile that interacts with Clemson University's web handin
 system for submitting Computer Science projects. Its notable features are:
 
 - A `make remote` rule that copies certain files to a lab machine and executes
@@ -10,7 +10,7 @@ system for submitting Computer Science projects. Its notable features are:
 - A `make handout` rule that checks out the most recent submitted version of 
   your project and runs `make` on it _on a lab machine_.
 
-You might like magic make if you regularl compose your programs on anything
+You might like magic make if you regularly compose your programs on anything
 other than a McAdams lab machine and don't want to deal with the hassle of
 copying your files and testing manually.
 
