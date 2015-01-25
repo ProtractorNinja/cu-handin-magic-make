@@ -1,6 +1,9 @@
 # Mr. Anderson's Magical Makefile!
 # Check the README.md for usage instructions.
 
+# Use bash as the execution shell, not sh.
+SHELL := /bin/bash
+
 # ========= #
 # Variables #
 # ========= #
@@ -24,7 +27,7 @@ ARCHIVE_COMMAND = tar -czf
 # Names your local Mercurial repository folder. If something gets messed up
 # with the repo, you can try deleting this folder and running `make handin`
 # again.
-# Default: handin
+# Default: .handin
 LOCAL_HANDIN = .handin
 
 # These are all the files that will get added to the submitted handin archive.
