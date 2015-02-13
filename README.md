@@ -25,8 +25,8 @@ when it comes time to test.
    have Mercurial pre-installed. To install on Debian/Ubuntu, use `sudo apt-get
    install mercurial`.
 
-2. Make sure handin likes you. Follow the instructions at
-   `https://handin.cs.clemson.edu/help/students/cli/setup/` for both your
+2. Make sure handin likes you. Follow 
+   [these instructions](https://handin.cs.clemson.edu/help/students/hg/setup/) for both your
    development machine and the lab machines.
 
    To use `make remote`, you'll also need to make sure you can automatically
