@@ -58,7 +58,9 @@ default: all
 # remote tests.
 remote:
 	@echo ">> Copying current directory to the lab... <<"
-	@rsync --exclude=".git" --exclude="$(LOCAL_HANDIN)/" --delete-delay -r . $(REMOTE_USER)@access.cs.clemson.edu:~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)/
+	@rsync --exclude=".git" --exclude="$(LOCAL_HANDIN)/" --delete-delay -r . \
+		--rsync-path="mkdir -p ~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT) && rsync" \
+		$(REMOTE_USER)@access.cs.clemson.edu:~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)/
 	@echo ">> Executing \"make labtest\"... <<"
 	@ssh $(REMOTE_USER)@access.cs.clemson.edu "ssh $(REMOTE_USER)@$(REMOTE_MACHINE).cs.clemson.edu \"\
 	  cd ~/$(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT) && make labtest;\
