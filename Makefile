@@ -57,7 +57,7 @@ default: all
 #creates a Tarbell of the files with the latest sources that will be submitted
 tarball: $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE)
 
-$(LOCAL_HANDIN)/$(PROJECT_ARCHIVE): $(HANDIN_FILES)
+$(LOCAL_HANDIN)/$(PROJECT_ARCHIVE): $(HANDIN_FILES) Makefile
 	@echo ">> Setting up repo, if necessary... <<"
 	@test -d $(LOCAL_HANDIN) || hg clone $(REPO_URL) $(LOCAL_HANDIN)
 	@echo ">> Archiving project files... <<"
