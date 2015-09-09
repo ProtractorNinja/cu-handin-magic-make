@@ -17,7 +17,7 @@ ASSIGNMENT =
 
 # Names the archive file; usually given in your project spec.
 # Example: project2.tgz
-PROJECT_ARCHIVE =
+PROJECT_ARCHIVE = 
 
 # Command to use to make your PROJECT_ARCHIVE file. Make sure your command
 # matches the archive you're trying to make!
@@ -78,15 +78,15 @@ handout:
 	  cd $(REMOTE_TEST_DIRECTORY)/$(ASSIGNMENT)-handin && tar -xzf $(PROJECT_ARCHIVE) && make\
 	\""
 
-# Packs project files into a .tgz, and pushes to the remote handin repo.
-# Snazzy!
-handin: Makefile $(HANDIN_FILES)
-	@echo ">> Setting up repo, if necessary... <<"
-	@test -d $(LOCAL_HANDIN) || hg clone $(REPO_URL) $(LOCAL_HANDIN)
+# Arranges for files to be packaged into an archive, and pushes to the
+# remote handin repo. Snazzy!
+handin: $(HANDIN_FILES) Makefile
+	@echo ">> Working on local repository... <<"
+	@test -d $(LOCAL_HANDIN) || hg --quiet clone $(REPO_URL) $(LOCAL_HANDIN)
 	@echo ">> Archiving project files... <<"
-	@$(ARCHIVE_COMMAND) $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE) $^
-	@echo ">> Submitting project to handin (ignore 'already tracked!' warning)... <<"
-	@hg --quiet --cwd $(LOCAL_HANDIN) add $(PROJECT_ARCHIVE)
+	$(ARCHIVE_COMMAND) $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE) $^
+	@echo ">> Submitting project to handin... <<"
+	@hg files --cwd $(LOCAL_HANDIN) -I "$(PROJECT_ARCHIVE)" &>/dev/null || hg --quiet --cwd $(LOCAL_HANDIN) add $(PROJECT_ARCHIVE)
 	@hg --quiet --cwd $(LOCAL_HANDIN) commit -m "Submitted new project version"
 	@hg --quiet --cwd $(LOCAL_HANDIN) push
 	@echo ">> Success! Use \"make handout\" to test on a lab machine. <<"
