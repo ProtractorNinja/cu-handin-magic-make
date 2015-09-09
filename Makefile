@@ -54,6 +54,15 @@ default: all
 # DON'T MESS WITH THESE #
 # ===================== #
 
+#creates a Tarbell of the files with the latest sources that will be submitted
+tarball: $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE)
+
+$(LOCAL_HANDIN)/$(PROJECT_ARCHIVE): $(HANDIN_FILES)
+	@echo ">> Setting up repo, if necessary... <<"
+	@test -d $(LOCAL_HANDIN) || hg clone $(REPO_URL) $(LOCAL_HANDIN)
+	@echo ">> Archiving project files... <<"
+	$(ARCHIVE_COMMAND) $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE) $(HANDIN_FILES) Makefile
+
 # Connects to a lab machine, copies the current directory over, and runs your
 # remote tests.
 remote:
@@ -78,15 +87,11 @@ handout:
 
 # Packs project files into a .tgz, and pushes to the remote handin repo.
 # Snazzy!
-handin: Makefile $(HANDIN_FILES)
-	@echo ">> Setting up repo, if necessary... <<"
-	@test -d $(LOCAL_HANDIN) || hg clone $(REPO_URL) $(LOCAL_HANDIN)
-	@echo ">> Archiving project files... <<"
-	@$(ARCHIVE_COMMAND) $(LOCAL_HANDIN)/$(PROJECT_ARCHIVE) $^
-	@echo ">> Submitting project to handin (ignore 'already tracked!' warning)... <<"
-	@hg --quiet --cwd $(LOCAL_HANDIN) add $(PROJECT_ARCHIVE)
-	@hg --quiet --cwd $(LOCAL_HANDIN) commit -m "Submitted new project version"
-	@hg --quiet --cwd $(LOCAL_HANDIN) push
+handin: Makefile tarball
+	@echo ">> Submitting project to handin <<"
+	@hg files --cwd $(LOCAL_HANDIN) -I "$(PROJECT_ARCHIVE)" &>/dev/null || hg --quiet --cwd $(LOCAL_HANDIN) add $(PROJECT_ARCHIVE)
+	@hg --quiet --cwd $(LOCAL_HANDIN) commit -m "Submitted new project version" || echo ">> No changes made <<"
+	@hg --quiet --cwd $(LOCAL_HANDIN) push || echo -n ""
 	@echo ">> Success! Use \"make handout\" to test on a lab machine. <<"
 
 # ============ #
@@ -97,7 +102,7 @@ handin: Makefile $(HANDIN_FILES)
 
 # Indicates that these special rules aren't for files (they're for doing cool things)
 .PHONY: all test labtest remote handout handin \
-	clean
+	clean tarball
 
 # Cleans out old code
 clean:
